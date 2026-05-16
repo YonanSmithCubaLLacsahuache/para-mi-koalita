@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>❤️ Para Mi Koalita ❤️</title>
+  <link rel="icon" type="image/png" href="koala-capibara.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: black;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* 🎬 Fondo tipo Netflix */
+    .background {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(to top,
+          rgba(0, 0, 0, 0.98) 0%,
+          rgba(0, 0, 0, 0.4) 45%,
+          rgba(0, 0, 0, 0.95) 100%),
+        url('love-photo.jpg');
+
+      background-size: cover;
+      background-position: center;
+      filter: blur(3px) brightness(0.55);
+      transform: scale(1.08);
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255, 0, 80, 0.15), rgba(0, 0, 0, 0.9));
+      z-index: -1;
+    }
+
+    /* 🎥 Entrada cinematográfica */
+    .container {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      animation: fadeIn 2s ease;
+      z-index: 1;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(1.05);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* 💌 Card premium */
+    .card {
+      max-width: 720px;
+      width: 100%;
+      padding: 40px 30px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 60px rgba(255, 0, 100, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 25px;
+      color: #ffd6e7;
+      margin-bottom: 15px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px rgba(255, 100, 150, 0.2);
+      }
+
+      to {
+        text-shadow: 0 0 25px rgba(255, 100, 150, 0.6);
+      }
+    }
+
+    /* 📝 efecto escritura suave */
+    .message {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.9;
+      white-space: pre-line;
+      color: rgba(255, 255, 255, 0.92);
+      animation: slideUp 2s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .photo {
+      width: 260px;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-top: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 30px rgba(255, 0, 80, 0.25);
+      animation: zoom 2s ease;
+    }
+
+    @keyframes zoom {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* 🎬 botón estilo Netflix romántico */
+    .button {
+      display: block;
+      width: fit-content;
+      margin: 20px auto 0;
+      padding: 14px 26px;
+      border-radius: 999px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, #ff2e63, #ff5e7d);
+      box-shadow: 0 10px 30px rgba(255, 0, 90, 0.35);
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 0, 90, 0.5);
+    }
+
+    .secondary-button {
+      background: linear-gradient(135deg, #444, #222);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .secondary-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    /* 💬 mensaje oculto */
+    .hidden-message {
+      margin-top: 20px;
+      opacity: 0;
+      font-size: 13px;
+      transform: translateY(10px);
+      transition: all 1s ease;
+      color: #ffd6e7;
+    }
+
+    .show {
+      opacity: 1;
+      font-size: 13px;
+      transform: translateY(0);
+    }
+
+    /* ❤️ corazones */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      color: #ff4d88;
+      animation: float 5s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-110vh) translateX(30px) scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    /* 🎵 botones música */
+    .music-controls {
+      position: fixed;
+      top: 20px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 9999;
+    }
+
+    .music-button {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .photo-symbol {
+      width: 260px;
+      margin: 10px auto 20px;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 25px 18px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .message {
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .photo {
+        width: 210px;
+        height: 290px;
+      }
+
+      .photo-symbol {
+        width: 210px;
+      }
+    }
+
+    .fade-out {
+      animation: fadeOutScene 4s forwards;
+    }
+
+    @keyframes fadeOutScene {
+      0% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: scale(1.05);
+      }
+    }
+
+    .final-message {
+      position: fixed;
+      inset: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 30px;
+      opacity: 0;
+      animation: showFinal 3s forwards;
+    }
+
+    .final-message h1 {
+      font-size: 55px;
+      margin-bottom: 20px;
+    }
+
+    .final-message p {
+      max-width: 500px;
+      line-height: 1.9;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    @keyframes showFinal {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <script type="text/javascript">
+    emailjs.init('K5H5VDLnCBSe9CUCe')
+  </script>
+</head>
+
+<body>
+
+  <div class="background"></div>
+  <div class="overlay"></div>
+
+  <div class="music-controls">
+    <button class="music-button" onclick="playMusic()">🎵 Play</button>
+    <button class="music-button" onclick="pauseMusic()">⏸️</button>
+  </div>
+
+  <div class="container">
+    <div class="card">
+
+      <h1>❤️ Para Mi Koalita ❤️</h1>
+
+      <img src="love-photo.jpg" class="photo" />
+
+      <div class="message">
+        Mi amor,
+
+        Primero que todo… feliz cumpleaños 🎂❤️
+        Espero de verdad que te hayan gustado las flores 💐.
+
+        También quiero pedirte perdón por cómo actué contigo. Reconozco que no te traté como merecías y eso es algo
+        que me duele profundamente hoy 💔.
+
+        No he dejado de pensar en ti ni un solo día, te extraño demasiado. Y tenías razón cuando me dijiste que cuando
+        lo hiciera recordaría todo lo malo que hice… y así ha sido 😞.
+
+        Me arrepiento de verdad. 🙁
+
+        A pesar de las malas actitudes que tienes, me encantas 🤗 y quiero estar contigo 👉👈. Quiero que mejoremos los
+        dos para que esto pueda funcionar 🫶.
+
+        Si aún existe una pequeña posibilidad, me gustaría preguntarte si podríamos intentarlo de nuevo,
+        esta vez haciendo las cosas bien 🥺.
+
+        No tienes que responder ahora si no estás lista, pero si lo estás tienes dos opciones...
+
+      </div>
+
+      <button id="btnSi" class="button" onclick="responder()">
+        ❤️ Sí, aún hay una oportunidad
+      </button>
+
+      <button id="btnNo" class="button secondary-button" onclick="despedirse()">
+        💔 No quiero volver a intentarlo
+      </button>
+
+      <img src="koala-capibara.png" class="photo-symbol" />
+
+      <div class="hidden-message" id="respuesta">
+        ❤️ Gracias por considerar esto... ❤️
+      </div>
+
+    </div>
+  </div>
+
+  <audio id="music" loop>
+    <source src="love-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // 🚫 BLOQUEO DE ACCESO (debe ir primero)
+    if (localStorage.getItem("bloqueado") === "true") {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          flex-direction:column;
+          background:black;
+          color:white;
+          font-family:Poppins,sans-serif;
+          text-align:center;
+          padding:30px;
+        ">
+          <h1 style="font-size:50px;">💔</h1>
+          <p>Este sitio ya no está disponible.</p>
+        </div>
+      `;
+    }
+
+    function enviarCorreo(mensaje) {
+      emailjs.send('default_service', 'template_6savqxr', {
+        mensaje: mensaje,
+      }).catch(err => {
+        console.log("Error enviando correo:", err);
+      });
+    }
+
+    function playMusic() {
+      const music = document.getElementById('music');
+      music.volume = 0.7;
+      music.play().catch(err => {
+        console.log("El navegador bloqueó la reproducción automática", err);
+      });
+    }
+
+    function pauseMusic() {
+      document.getElementById("music").pause();
+    }
+
+    function responder() {
+
+      enviarCorreo("ACEPTO - quiere intentarlo de nuevo");
+
+      document.getElementById("respuesta").classList.add("show");
+
+      document.getElementById("btnNo").style.display = "none";
+
+      for (let i = 0; i < 25; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerHTML = "❤️";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+          document.body.appendChild(heart);
+
+          setTimeout(() => heart.remove(), 4000);
+        }, i * 120);
+      }
+
+      setTimeout(() => {
+        window.open("https://wa.me/51912622416", "_blank");
+      }, 3500);
+    }
+
+    function despedirse() {
+
+      enviarCorreo("RECHAZA - no quiere intentarlo");
+
+      localStorage.setItem("bloqueado", "true");
+
+      document.getElementById("music").pause();
+
+      // 💔 corazones tristes
+      for (let i = 0; i < 25; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerHTML = "💔";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+          document.body.appendChild(heart);
+
+          setTimeout(() => heart.remove(), 5000);
+        }, i * 150);
+      }
+
+      // 🎬 Desaparece toda la escena
+      document.querySelector(".container").classList.add("fade-out");
+      document.querySelector(".background").classList.add("fade-out");
+      document.querySelector(".overlay").classList.add("fade-out");
+      document.querySelector(".music-controls").classList.add("fade-out");
+
+      // ⏳ Luego aparece mensaje final
+      setTimeout(() => {
+
+        document.body.innerHTML = `
+        <div class="final-message">
+          <h1>💔</h1>
+
+          <p>
+            Cuídate mucho.<br>
+            Adiós.
+          </p>
+
+          <br><br>
+
+          <p style="font-size:12px; opacity:0.6;">
+            Este sitio ya no está disponible
+          </p>
+        </div>
+      `;
+
+      }, 4000);
+    }
+
+  </script>
+
+</body>
+
+</html>
