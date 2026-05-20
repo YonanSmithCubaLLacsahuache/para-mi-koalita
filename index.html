@@ -24,7 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* 🎬 Fondo tipo Netflix */
     .background {
       position: fixed;
       inset: 0;
@@ -49,7 +48,6 @@
       z-index: -1;
     }
 
-    /* 🎥 Entrada cinematográfica */
     .container {
       min-height: 100vh;
       display: flex;
@@ -72,7 +70,6 @@
       }
     }
 
-    /* 💌 Card premium */
     .card {
       max-width: 720px;
       width: 100%;
@@ -103,7 +100,6 @@
       }
     }
 
-    /* 📝 efecto escritura suave */
     .message {
       margin-top: 20px;
       font-size: 14px;
@@ -148,7 +144,6 @@
       }
     }
 
-    /* 🎬 botón estilo Netflix romántico */
     .button {
       display: block;
       width: fit-content;
@@ -180,7 +175,6 @@
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     }
 
-    /* 💬 mensaje oculto */
     .hidden-message {
       margin-top: 20px;
       opacity: 0;
@@ -196,7 +190,6 @@
       transform: translateY(0);
     }
 
-    /* ❤️ corazones */
     .heart {
       position: fixed;
       bottom: -20px;
@@ -217,7 +210,6 @@
       }
     }
 
-    /* 🎵 botones música */
     .music-controls {
       position: fixed;
       top: 20px;
@@ -350,26 +342,29 @@
       <img src="love-photo.jpg" class="photo" />
 
       <div class="message">
-        Mi amor,
+        Hola mi amor,
 
-        Primero que todo… feliz cumpleaños 🎂❤️
-        Espero de verdad que te hayan gustado las flores 💐.
+        Primero que todo… feliz cumpleaños 🎂
+        por si no te llego a ver de nuevo... espero te guste tu regalo de cumpleaños 🎁❤️.
 
-        También quiero pedirte perdón por cómo actué contigo. Reconozco que no te traté como merecías y eso es algo
+        También quiero pedirte perdón por cómo actué contigo.
+        Reconozco que no te traté como merecías y eso es algo
         que me duele profundamente hoy 💔.
 
-        No he dejado de pensar en ti ni un solo día, te extraño demasiado. Y tenías razón cuando me dijiste que cuando
+        No he dejado de pensar en ti ni un solo día por más que traté, te extraño demasiado. Y tenías razón cuando me
+        dijiste que cuando
         lo hiciera recordaría todo lo malo que hice… y así ha sido 😞.
 
         Me arrepiento de verdad. 🙁
 
         A pesar de las malas actitudes que tienes, me encantas 🤗 y quiero estar contigo 👉👈. Quiero que mejoremos los
-        dos para que esto pueda funcionar 🫶.
+        dos
+        para que esto pueda funcionar 🫶.
 
         Si aún existe una pequeña posibilidad, me gustaría preguntarte si podríamos intentarlo de nuevo,
         esta vez haciendo las cosas bien 🥺.
 
-        No tienes que responder ahora si no estás lista, pero si lo estás tienes dos opciones...
+        No tienes que responder ahora si no estás lista...
 
       </div>
 
@@ -395,7 +390,7 @@
   </audio>
 
   <script>
-    // 🚫 BLOQUEO DE ACCESO (debe ir primero)
+
     if (localStorage.getItem("bloqueado") === "true") {
       document.body.innerHTML = `
         <div style="
@@ -470,7 +465,6 @@
 
       document.getElementById("music").pause();
 
-      // 💔 corazones tristes
       for (let i = 0; i < 25; i++) {
         setTimeout(() => {
           const heart = document.createElement("div");
@@ -484,13 +478,11 @@
         }, i * 150);
       }
 
-      // 🎬 Desaparece toda la escena
       document.querySelector(".container").classList.add("fade-out");
       document.querySelector(".background").classList.add("fade-out");
       document.querySelector(".overlay").classList.add("fade-out");
       document.querySelector(".music-controls").classList.add("fade-out");
 
-      // ⏳ Luego aparece mensaje final
       setTimeout(() => {
 
         document.body.innerHTML = `
