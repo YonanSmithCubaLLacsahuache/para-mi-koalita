@@ -357,12 +357,10 @@
 
         Me arrepiento de verdad. 🙁
 
-        A pesar de las malas actitudes que tienes, me encantas 🤗 y quiero estar contigo 👉👈. Quiero que mejoremos los
-        dos
+        A pesar de las malas actitudes que tienes, me encantas 🤗 y quiero estar contigo 👉👈. Quiero que mejoremos los dos
         para que esto pueda funcionar 🫶.
 
-        Si aún existe una pequeña posibilidad, me gustaría preguntarte si podríamos intentarlo de nuevo,
-        esta vez haciendo las cosas bien 🥺.
+        Si aún existe una pequeña posibilidad, me gustaría preguntarte si podríamos intentarlo de nuevo y poder hablar bien las cosas sobre nosotros.
 
         No tienes que responder ahora si no estás lista...
 
@@ -391,6 +389,10 @@
 
   <script>
 
+    if (localStorage.getItem("init") === null) {
+      enviarCorreo("CARGADO - El sitio fue abierto.");
+    }
+
     if (localStorage.getItem("bloqueado") === "true") {
       document.body.innerHTML = `
         <div style="
@@ -409,6 +411,11 @@
           <p>Este sitio ya no está disponible.</p>
         </div>
       `;
+    }
+
+    if (localStorage.getItem("btnSi") === "true") {
+      document.getElementById("btnSi").style.display = "none";
+      document.getElementById("btnNo").style.display = "none";
     }
 
     function enviarCorreo(mensaje) {
@@ -433,10 +440,13 @@
 
     function responder() {
 
-      enviarCorreo("ACEPTO - quiere intentarlo de nuevo");
+      enviarCorreo("ACEPTO - Quiere intentarlo de nuevo.");
+
+      localStorage.setItem("btnSi", "true");
 
       document.getElementById("respuesta").classList.add("show");
 
+      document.getElementById("btnSi").style.display = "none";
       document.getElementById("btnNo").style.display = "none";
 
       for (let i = 0; i < 25; i++) {
@@ -459,7 +469,7 @@
 
     function despedirse() {
 
-      enviarCorreo("RECHAZA - no quiere intentarlo");
+      enviarCorreo("RECHAZA - No quiere intentarlo.");
 
       localStorage.setItem("bloqueado", "true");
 
