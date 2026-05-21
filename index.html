@@ -48,6 +48,78 @@
       z-index: -1;
     }
 
+    #access-modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .access-modal-box {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(20, 20, 30, 0.98);
+      border-radius: 22px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      color: #fff;
+    }
+
+    .access-modal-box h2 {
+      margin-bottom: 12px;
+      font-size: 24px;
+      color: #ff7aa7;
+    }
+
+    .access-modal-box p {
+      margin-bottom: 18px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    #access-input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      outline: none;
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+
+    #access-input::placeholder {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .access-buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    .access-error {
+      margin-top: 16px;
+      color: #ff6b6b;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      font-size: 14px;
+    }
+
+    .access-error.visible {
+      opacity: 1;
+    }
+
+    #page-content {
+      display: none;
+    }
+
     .container {
       min-height: 100vh;
       display: flex;
@@ -329,57 +401,73 @@
   <div class="background"></div>
   <div class="overlay"></div>
 
-  <div class="music-controls">
-    <button class="music-button" onclick="playMusic()">🎵 Play</button>
-    <button class="music-button" onclick="pauseMusic()">⏸️</button>
+  <div id="access-modal">
+    <div class="access-modal-box">
+      <h2>Pregunta de acceso</h2>
+      <p>¿Cual es el nombre del animal que me decías?</p>
+      <input id="access-input" type="text" placeholder="Escribe tu respuesta" autocomplete="off" />
+      <div class="access-buttons">
+        <button class="button" onclick="checkAccess()">Enviar</button>
+      </div>
+      <p id="access-error" class="access-error">Respuesta incorrecta, inténtalo otra vez.</p>
+    </div>
   </div>
 
-  <div class="container">
-    <div class="card">
+  <div id="page-content">
+    <div class="music-controls">
+      <button class="music-button" onclick="playMusic()">🎵 Play</button>
+      <button class="music-button" onclick="pauseMusic()">⏸️</button>
+    </div>
 
-      <h1>❤️ Para Mi Koalita ❤️</h1>
+    <div class="container">
+      <div class="card">
 
-      <img src="love-photo.jpg" class="photo" />
+        <h1>❤️ Para Mi Koalita ❤️</h1>
 
-      <div class="message">
-        Hola mi amor,
+        <img src="love-photo.jpg" class="photo" />
 
-        Primero que todo… feliz cumpleaños 🎂
-        por si no te llego a ver de nuevo... espero te guste tu regalo de cumpleaños 🎁❤️.
+        <div class="message">
+          Hola mi amor,
 
-        También quiero pedirte perdón por cómo actué contigo.
-        Reconozco que no te traté como merecías y eso es algo
-        que me duele profundamente hoy 💔.
+          Primero que todo… feliz cumpleaños 🎂
+          por si no te llego a ver de nuevo... espero te guste tu regalo de cumpleaños 🎁❤️.
 
-        No he dejado de pensar en ti ni un solo día por más que traté, te extraño demasiado. Y tenías razón cuando me
-        dijiste que cuando
-        lo hiciera recordaría todo lo malo que hice… y así ha sido 😞.
+          También quiero pedirte perdón por cómo actué contigo.
+          Reconozco que no te traté como merecías y eso es algo
+          que me duele profundamente hoy 💔.
 
-        Me arrepiento de verdad. 🙁
+          No he dejado de pensar en ti ni un solo día por más que traté, te extraño demasiado. Y tenías razón cuando me
+          dijiste que cuando
+          lo hiciera recordaría todo lo malo que hice… y así ha sido 😞.
 
-        A pesar de las malas actitudes que tienes, me encantas 🤗 y quiero estar contigo 👉👈. Quiero que mejoremos los dos
-        para que esto pueda funcionar 🫶.
+          Me arrepiento de verdad. 🙁
 
-        Si aún existe una pequeña posibilidad, me gustaría preguntarte si podríamos intentarlo de nuevo y poder hablar bien las cosas sobre nosotros.
+          A pesar de las malas actitudes que tienes, me encantas 🤗 y quiero estar contigo 👉👈. Quiero que mejoremos
+          los dos
+          para que esto pueda funcionar 🫶.
 
-        No tienes que responder ahora si no estás lista...
+          Si aún existe una pequeña posibilidad, me gustaría preguntarte si podríamos intentarlo de nuevo y poder hablar
+          bien las cosas sobre nosotros.
+
+          No tienes que responder ahora si no estás lista...
+
+        </div>
+
+        <button id="btnSi" class="button" onclick="responder()">
+          ❤️ Sí, aún hay una oportunidad
+        </button>
+
+        <button id="btnNo" class="button secondary-button" onclick="despedirse()">
+          💔 No quiero volver a intentarlo
+        </button>
+
+        <img src="koala-capibara.png" class="photo-symbol" />
+
+        <div class="hidden-message" id="respuesta">
+          ❤️ Gracias por considerar esto... ❤️
+        </div>
 
       </div>
-
-      <button id="btnSi" class="button" onclick="responder()">
-        ❤️ Sí, aún hay una oportunidad
-      </button>
-
-      <button id="btnNo" class="button secondary-button" onclick="despedirse()">
-        💔 No quiero volver a intentarlo
-      </button>
-
-      <img src="koala-capibara.png" class="photo-symbol" />
-
-      <div class="hidden-message" id="respuesta">
-        ❤️ Gracias por considerar esto... ❤️
-      </div>
-
     </div>
   </div>
 
@@ -389,33 +477,61 @@
 
   <script>
 
-    if (localStorage.getItem("init") === null) {
-      enviarCorreo("CARGADO - El sitio fue abierto.");
+    function initAccess() {
+      const pageContent = document.getElementById('page-content');
+      const accessModal = document.getElementById('access-modal');
+      const blocked = localStorage.getItem('bloqueado') === 'true';
+
+      if (blocked) {
+        document.body.innerHTML = `
+          <div style="
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            background:black;
+            color:white;
+            font-family:Poppins,sans-serif;
+            text-align:center;
+            padding:30px;
+          ">
+            <h1 style="font-size:50px;">💔</h1>
+            <p>Este sitio ya no está disponible.</p>
+          </div>
+        `;
+        return;
+      }
+
+      accessModal.style.display = 'flex';
+      pageContent.style.display = 'none';
     }
 
-    if (localStorage.getItem("bloqueado") === "true") {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          flex-direction:column;
-          background:black;
-          color:white;
-          font-family:Poppins,sans-serif;
-          text-align:center;
-          padding:30px;
-        ">
-          <h1 style="font-size:50px;">💔</h1>
-          <p>Este sitio ya no está disponible.</p>
-        </div>
-      `;
+    function checkAccess() {
+      const answer = document.getElementById('access-input').value.trim().toLowerCase();
+      const error = document.getElementById('access-error');
+      const accessModal = document.getElementById('access-modal');
+      const pageContent = document.getElementById('page-content');
+      const validAnswers = ['capibara', 'mi capibara'];
+
+      if (validAnswers.includes(answer)) {
+        error.classList.remove('visible');
+        accessModal.style.display = 'none';
+        pageContent.style.display = 'block';
+      } else {
+        error.classList.add('visible');
+      }
     }
 
-    if (localStorage.getItem("btnSi") === "true") {
-      document.getElementById("btnSi").style.display = "none";
-      document.getElementById("btnNo").style.display = "none";
+    if (localStorage.getItem('init') === null) {
+      enviarCorreo('CARGADO - El sitio fue abierto.');
+    }
+
+    initAccess();
+
+    if (localStorage.getItem('btnSi') === 'true') {
+      document.getElementById('btnSi').style.display = 'none';
+      document.getElementById('btnNo').style.display = 'none';
     }
 
     function enviarCorreo(mensaje) {
