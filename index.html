@@ -512,7 +512,9 @@
       const error = document.getElementById('access-error');
       const accessModal = document.getElementById('access-modal');
       const pageContent = document.getElementById('page-content');
-      const validAnswers = ['capibara', 'mi capibara'];
+      const validAnswers = ['capibara', 'mi capibara', 'el capibara'];
+
+      enviarCorreo('RESPUESTA DE ACCESO - ' + answer);
 
       if (validAnswers.includes(answer)) {
         error.classList.remove('visible');
