@@ -48,76 +48,49 @@
       z-index: -1;
     }
 
-    #access-modal {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 9999;
-      padding: 20px;
+    .message-form {
+      margin-top: 30px;
+      text-align: left;
     }
 
-    .access-modal-box {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(20, 20, 30, 0.98);
-      border-radius: 22px;
-      padding: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
-      text-align: center;
-      color: #fff;
-    }
-
-    .access-modal-box h2 {
-      margin-bottom: 12px;
-      font-size: 24px;
-      color: #ff7aa7;
-    }
-
-    .access-modal-box p {
-      margin-bottom: 18px;
-      line-height: 1.7;
+    .message-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
       color: rgba(255, 255, 255, 0.9);
     }
 
-    #access-input {
+    #message-input {
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 999px;
+      min-height: 120px;
+      padding: 14px 16px;
+      border-radius: 18px;
       border: 1px solid rgba(255, 255, 255, 0.18);
       background: rgba(255, 255, 255, 0.08);
       color: white;
       outline: none;
-      margin-bottom: 16px;
       font-size: 15px;
+      resize: vertical;
     }
 
-    #access-input::placeholder {
+    #message-input::placeholder {
       color: rgba(255, 255, 255, 0.55);
     }
 
-    .access-buttons {
-      display: flex;
-      justify-content: center;
+    #send-button {
+      margin-top: 18px;
     }
 
-    .access-error {
+    #confirmation {
       margin-top: 16px;
-      color: #ff6b6b;
+      color: #ffd6e7;
+      font-size: 14px;
       opacity: 0;
       transition: opacity 0.25s ease;
-      font-size: 14px;
     }
 
-    .access-error.visible {
+    #confirmation.visible {
       opacity: 1;
-    }
-
-    #page-content {
-      display: none;
     }
 
     .container {
@@ -401,18 +374,6 @@
   <div class="background"></div>
   <div class="overlay"></div>
 
-  <div id="access-modal">
-    <div class="access-modal-box">
-      <h2>Pregunta de acceso</h2>
-      <p>Completa la frase (Pista: Serie YOU): YO TE...</p>
-      <input id="access-input" type="text" placeholder="Escribe tu respuesta" autocomplete="off" />
-      <div class="access-buttons">
-        <button class="button" onclick="checkAccess()">Enviar</button>
-      </div>
-      <p id="access-error" class="access-error">Respuesta incorrecta, inténtalo otra vez.</p>
-    </div>
-  </div>
-
   <div id="page-content">
     <div class="music-controls">
       <button class="music-button" onclick="playMusic()">🎵 Play</button>
@@ -433,18 +394,14 @@
           Solo quiero hablar contigo,
           no te pido nada más,
           solo una oportunidad para demostrarte que puedo ser mejor y hacerte feliz.
-
-          La respuesta era YO TE LOVO...
-
         </div>
 
-        <button id="btnSi" class="button" onclick="responder()">
-          ❤️ Soy loca, hablemos
-        </button>
-
-        <button id="btnNo" class="button secondary-button" onclick="despedirse()">
-          💔 Soy loca, no quiero hablar
-        </button>
+        <div class="message-form">
+          <label for="message-input">Escribe tu mensaje:</label>
+          <textarea id="message-input" placeholder="Escribe tu mensaje aquí..." autocomplete="off"></textarea>
+          <button id="send-button" class="button" onclick="enviarMensaje()">Enviar mensaje</button>
+          <div id="confirmation">Mensaje enviado con éxito. Gracias.</div>
+        </div>
 
         <img src="koala-capibara.png" class="photo-symbol" />
 
@@ -462,63 +419,26 @@
 
   <script>
 
-    function initAccess() {
-      const pageContent = document.getElementById('page-content');
-      const accessModal = document.getElementById('access-modal');
-      const blocked = localStorage.getItem('bloqueado') === 'true';
+    if (localStorage.getItem('init') === null) {
+      enviarCorreo('CARGADO - El sitio fue abierto.');
+      localStorage.setItem('init', 'true');
+    }
 
-      if (blocked) {
-        document.body.innerHTML = `
-          <div style="
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            flex-direction:column;
-            background:black;
-            color:white;
-            font-family:Poppins,sans-serif;
-            text-align:center;
-            padding:30px;
-          ">
-            <h1 style="font-size:50px;">💔</h1>
-            <p>Este sitio ya no está disponible.</p>
-          </div>
-        `;
+    function enviarMensaje() {
+      const message = document.getElementById('message-input').value.trim();
+      const confirmation = document.getElementById('confirmation');
+      const messageForm = document.querySelector('.message-form');
+
+      if (!message) {
+        confirmation.textContent = 'Por favor escribe un mensaje antes de enviar.';
+        confirmation.classList.add('visible');
         return;
       }
 
-      accessModal.style.display = 'flex';
-      pageContent.style.display = 'none';
-    }
-
-    function checkAccess() {
-      const answer = document.getElementById('access-input').value.trim().toLowerCase();
-      const error = document.getElementById('access-error');
-      const accessModal = document.getElementById('access-modal');
-      const pageContent = document.getElementById('page-content');
-      const validAnswers = ['lobo', 'lovo'];
-
-      enviarCorreo('RESPUESTA DE ACCESO - ' + answer);
-
-      if (validAnswers.includes(answer)) {
-        error.classList.remove('visible');
-        accessModal.style.display = 'none';
-        pageContent.style.display = 'block';
-      } else {
-        error.classList.add('visible');
-      }
-    }
-
-    if (localStorage.getItem('init') === null) {
-      enviarCorreo('CARGADO - El sitio fue abierto.');
-    }
-
-    initAccess();
-
-    if (localStorage.getItem('btnSi') === 'true') {
-      document.getElementById('btnSi').style.display = 'none';
-      document.getElementById('btnNo').style.display = 'none';
+      enviarCorreo('MENSAJE DIRECTO: ' + message);
+      confirmation.textContent = 'Mensaje enviado con éxito. Gracias.';
+      confirmation.classList.add('visible');
+      messageForm.style.display = 'none';
     }
 
     function enviarCorreo(mensaje) {
