@@ -32,7 +32,7 @@
           rgba(0, 0, 0, 0.98) 0%,
           rgba(0, 0, 0, 0.4) 45%,
           rgba(0, 0, 0, 0.95) 100%),
-        url('love-photo.jpg');
+        url('love-photo2.jpeg');
 
       background-size: cover;
       background-position: center;
@@ -404,7 +404,7 @@
   <div id="access-modal">
     <div class="access-modal-box">
       <h2>Pregunta de acceso</h2>
-      <p>¿Cual es el nombre del animal que me decías?</p>
+      <p>Completa la frase (Pista: Serie YOU): YO TE...</p>
       <input id="access-input" type="text" placeholder="Escribe tu respuesta" autocomplete="off" />
       <div class="access-buttons">
         <button class="button" onclick="checkAccess()">Enviar</button>
@@ -424,30 +424,20 @@
 
         <h1>❤️ Para Mi Koalita ❤️</h1>
 
-        <img src="love-photo.jpg" class="photo" />
+        <img src="love-photo2.jpeg" class="photo" />
 
         <div class="message">
-          Hola mi amor,
-
-          Ya vi que editaste el código XD
-
-          Porfa quiero hablar contigo.
-          Porque me dices perro infiel? No entiendo!! Al menos explícame,
-          no se que te habrán dicho ni quien (Y te dejas llevar por lo que te dicen y no hablas conmigo),
-          porque la última vez me mandaste un mensaje y luego lo borraste y
-          no es justo que me dejes así.
-          Ahora si no quieres saber nada de mi, ni hablar, ni al menos conversarlo, hubieras presionado el botón de no quiero volver a intentarlo para no seguir de ilusionado.
-          Pero si no lo presionaste el por algo creo yo no?
-          Podemos hablar hoy si quieres, estoy en mi cuarto trabajando.
+          Malditaaaaaa que esperasssssss.
+          😢😭
 
         </div>
 
         <button id="btnSi" class="button" onclick="responder()">
-          ❤️ Sí, hablemos
+          ❤️ Soy loca, hablemos
         </button>
 
         <button id="btnNo" class="button secondary-button" onclick="despedirse()">
-          💔 No quiero volver a intentarlo
+          💔 Soy loca, no quiero hablar
         </button>
 
         <img src="koala-capibara.png" class="photo-symbol" />
@@ -501,7 +491,7 @@
       const error = document.getElementById('access-error');
       const accessModal = document.getElementById('access-modal');
       const pageContent = document.getElementById('page-content');
-      const validAnswers = ['capibara', 'mi capibara', 'el capibara'];
+      const validAnswers = ['lobo', 'lovo'];
 
       enviarCorreo('RESPUESTA DE ACCESO - ' + answer);
 
